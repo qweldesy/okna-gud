@@ -1,0 +1,180 @@
+/* ============================================================
+   Hero stage — video scroll-telling
+   Страница скроллит, видео проигрывается кадр за кадром:
+   наезд на дом → стеклянная стена распахивается → название.
+   ============================================================ */
+
+.hero-stage {
+  position: relative;
+  height: 320vh;
+  background: #050505;
+}
+
+.hero-stage.is-static {
+  height: 100svh;
+}
+
+.hero-stage__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #050505;
+}
+
+.hero-stage__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+}
+
+.hero-stage__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0.55) 0%, rgba(5, 5, 5, 0.08) 26%, rgba(5, 5, 5, 0.05) 55%, rgba(5, 5, 5, 0.72) 84%, rgba(5, 5, 5, 0.92) 100%);
+  pointer-events: none;
+}
+
+.hero-stage__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  z-index: 3;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: #b8b8b0;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: rgba(8, 8, 8, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+}
+
+.hero-stage__hint .icon {
+  width: 12px;
+  height: 12px;
+  animation: hero-cue 2.4s ease-in-out infinite;
+}
+
+@keyframes hero-cue {
+  0%, 100% { transform: translateY(-1px); }
+  50% { transform: translateY(3px); }
+}
+
+/* ---- company name ---- */
+
+.hero-brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-brand__mark {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  box-shadow: 0 18px 60px -18px rgba(0, 0, 0, 0.8), 0 0 42px rgba(127, 191, 77, 0.22);
+}
+
+.hero-brand__name {
+  display: block;
+  color: #f6f6f0;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 150px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  text-shadow: 0 4px 44px rgba(0, 0, 0, 0.6);
+}
+
+.hero-stage__progress {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  z-index: 3;
+  width: 2px;
+  height: 132px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.hero-stage__progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #b8e08a, #8fc45d);
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+/* ---- static fallback (reduced motion) ---- */
+
+.hero-stage.is-static .hero-brand {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
+
+.hero-stage.is-static .hero-stage__shade {
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0.5) 0%, rgba(5, 5, 5, 0.12) 30%, rgba(5, 5, 5, 0.28) 62%, rgba(5, 5, 5, 0.78) 100%);
+}
+
+@media (max-width: 720px) {
+  .hero-stage {
+    height: 300vh;
+  }
+
+  .hero-stage__hint {
+    left: 24px;
+    right: 24px;
+    bottom: 14%;
+    transform: none;
+    justify-content: center;
+  }
+
+  .hero-brand__mark {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+  }
+
+  .hero-brand__name {
+    font-size: clamp(52px, 15vw, 72px);
+  }
+
+  .hero-stage__progress {
+    right: 14px;
+    height: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stage__hint .icon {
+    animation: none;
+  }
+}

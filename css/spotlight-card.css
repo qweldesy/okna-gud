@@ -1,0 +1,46 @@
+/* ============================================================
+   SpotlightCard (React Bits, vanilla port) — тёмная адаптация.
+   Свет и кромка накладываются поверх содержимого карточки
+   (mix-blend-mode: screen), фон и обводку карточки не трогают.
+   ============================================================ */
+
+.spotlight-fx {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-fx .sc-light,
+.spotlight-fx .sc-grain,
+.spotlight-fx .sc-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  z-index: 3;
+}
+
+.spotlight-fx .sc-grain {
+  background-size: 160px 160px;
+  mix-blend-mode: overlay;
+}
+
+.spotlight-fx .sc-edge {
+  padding: 1px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-fx .sc-light,
+  .spotlight-fx .sc-grain,
+  .spotlight-fx .sc-edge {
+    transition: none;
+  }
+}

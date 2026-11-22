@@ -1,0 +1,24 @@
+{
+  "name": "Окна-Гуд",
+  "short_name": "Окна-Гуд",
+  "description": "Окна от производителя в Тольятти и Самарской области. 3D-конфигуратор с мгновенным расчётом.",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "img/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/favicon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
