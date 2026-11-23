@@ -2718,46 +2718,46 @@ button {
 
 .site-footer {
   position: relative;
+  background: #050505;
   border-top: 1px solid var(--stroke-soft);
-  padding-top: clamp(56px, 7vw, 84px);
+  padding-top: clamp(56px, 7vw, 88px);
   overflow: hidden;
 }
 
 .footer-top {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.8fr));
-  gap: 40px;
-  padding-bottom: 52px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 48px 40px;
+  padding-bottom: 56px;
 }
 
 .footer-brand p {
   max-width: 300px;
   margin-top: 18px;
   color: #9a9a93;
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.65;
 }
 
 .footer-title {
   display: block;
-  margin-bottom: 14px;
-  color: #94948d;
-  font-size: 9.5px;
+  margin-bottom: 16px;
+  color: #f2f2ec;
+  font-size: 13.5px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .footer-nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 11px;
 }
 
 .footer-nav a {
-  color: #b0b0a8;
-  font-size: 12px;
+  color: #9a9a93;
+  font-size: 13px;
   line-height: 1.45;
   transition: color 0.2s var(--ease);
 }
@@ -2769,9 +2769,9 @@ button {
 .footer-text {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
+  gap: 7px;
   color: #9a9a93;
-  font-size: 11px;
+  font-size: 12.5px;
   line-height: 1.5;
   transition: color 0.2s var(--ease);
 }
@@ -2781,27 +2781,11 @@ a.footer-text:hover {
 }
 
 .footer-text .icon {
-  width: 13px;
-  height: 13px;
-  margin-top: 1px;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
   color: #64645e;
-}
-
-.footer-wordmark {
-  position: relative;
-  margin: 18px auto 0;
-  padding: 0 0 12px;
-  overflow: hidden;
-  text-align: center;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-}
-
-.footer-wordmark img {
-  display: block;
-  width: 100%;
-  height: auto;
+  flex: none;
 }
 
 .footer-bottom {
@@ -2809,10 +2793,10 @@ a.footer-text:hover {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 30px;
-  padding: 20px 0 30px;
-  border-top: 1px solid var(--stroke-soft);
-  color: #85857e;
-  font-size: 9.5px;
+  padding: 24px 0 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #77776f;
+  font-size: 11px;
   line-height: 1.5;
 }
 
@@ -2820,8 +2804,8 @@ a.footer-text:hover {
   padding: 0;
   border: 0;
   background: none;
-  color: #a2a29b;
-  font-size: 9.5px;
+  color: #9a9a93;
+  font-size: 11px;
   text-decoration: none;
   transition: color 0.2s var(--ease);
 }
@@ -3497,9 +3481,6 @@ a.footer-text:hover {
     grid-column: span 2;
   }
 
-  .footer-wordmark {
-    margin-top: 14px;
-  }
 
   .footer-bottom {
     gap: 8px 20px;
@@ -3723,86 +3704,34 @@ a.footer-text:hover {
   color: #77776f;
 }
 
+/* ---------- Footer (dark) ---------- */
+
 .site-footer {
-  position: relative;
-  overflow: visible;
-  padding: 24px 0 40px;
-  background: #ececea;
-  border-top: 0;
-}
-
-.footer-card {
-  padding: 42px 46px 0;
-  border-radius: 32px;
-  background: #fbfbf9;
-  border: 1px solid #e4e4df;
-  box-shadow: 0 20px 60px -42px rgba(0, 0, 0, 0.3);
-}
-
-.footer-card .brand-name {
-  color: #11110f;
-}
-
-.footer-card .brand-sub {
-  color: #6b6b64;
-}
-
-.footer-card .brand-mark {
-  background: #fff;
-  border-color: #e1e1dc;
-  box-shadow: none;
-}
-
-.footer-card .footer-brand p {
-  color: #676760;
-}
-
-.footer-card .footer-title {
-  color: #6f6f68;
-}
-
-.footer-card .footer-nav a {
-  color: #4e4e48;
-}
-
-.footer-card .footer-nav a:hover {
-  color: #0a0a0a;
-}
-
-.footer-card .footer-text {
-  color: #66665f;
-}
-
-.footer-card .footer-text .icon {
-  color: #96968e;
-}
-
-.footer-card .footer-top {
-  padding-bottom: 32px;
+  padding: clamp(48px, 6vw, 72px) 0 28px;
 }
 
 .footer-social {
   display: flex;
-  gap: 8px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 22px;
 }
 
 .footer-social a {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  color: #4a4a44;
-  background: #fff;
-  border: 1px solid #deded9;
+  color: #b0b0a8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: color 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .footer-social a:hover {
-  color: #fff;
-  background: #11110f;
-  border-color: #11110f;
+  color: #0a0a0a;
+  background: #f2f2ec;
+  border-color: #f2f2ec;
   transform: translateY(-1px);
 }
 
@@ -3811,43 +3740,12 @@ a.footer-text:hover {
   height: 15px;
 }
 
-.footer-card .footer-wordmark {
-  margin: 28px auto 4px;
-  padding: 0;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.footer-card .footer-wordmark img {
-  width: 100%;
-  max-width: 100%;
-}
-
-.footer-card .footer-bottom {
-  padding: 18px 0 28px;
-  border-top: 1px solid #eaeae5;
-  color: #6b6b64;
-  font-size: 9.5px;
-}
-
-.footer-card .footer-link {
-  color: #5d5d57;
-}
-
-.footer-card .footer-link:hover {
-  color: #0a0a0a;
-}
-
 .footer-legal {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 22px;
   margin-left: auto;
-}
-
-.footer-card .footer-bottom {
-  gap: 10px 24px;
 }
 
 /* ============================================================
@@ -3860,9 +3758,6 @@ a.footer-text:hover {
   }
 
 
-  .footer-card {
-    padding: 34px 30px 0;
-  }
 }
 
 @media (max-width: 720px) {
@@ -3902,24 +3797,16 @@ a.footer-text:hover {
   }
 
   .site-footer {
-    padding: 16px 0 24px;
+    padding: 44px 0 20px;
   }
 
-  .footer-card {
-    padding: 26px 20px 0;
-    border-radius: 24px;
+  .footer-top {
+    gap: 30px 20px;
+    padding-bottom: 36px;
   }
 
-  .footer-card .footer-top {
-    padding-bottom: 24px;
-  }
-
-  .footer-card .footer-wordmark {
-    margin-top: 16px;
-  }
-
-  .footer-card .footer-bottom {
-    padding: 15px 0 22px;
+  .footer-bottom {
+    padding: 16px 0 6px;
   }
 
   .footer-legal {
@@ -3936,9 +3823,5 @@ a.footer-text:hover {
 
   .footer-cta h2 {
     font-size: 32px;
-  }
-
-  .footer-card {
-    padding: 22px 16px 0;
   }
 }
