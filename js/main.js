@@ -564,6 +564,10 @@
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
+        /* в аккордеоне-галерее первый тап лишь раскрывает панель;
+           переход к конфигуратору — только по уже раскрытой */
+        const panel = link.closest(".ag-panel");
+        if (panel && !panel.classList.contains("ag-panel--active")) return;
         let preset = null;
         try {
           preset = JSON.parse(link.dataset.workConfig || "null");

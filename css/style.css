@@ -297,6 +297,17 @@ button {
   transform: none;
 }
 
+/* скролл вниз — пилюля уезжает; скролл вверх — возвращается */
+.site-header.is-tucked {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-16px);
+  transition:
+    opacity 0.28s var(--ease),
+    transform 0.32s var(--ease-morph),
+    visibility 0s linear 0.32s;
+}
+
 .header-pill {
   position: relative;
   pointer-events: auto;

@@ -120,14 +120,71 @@
     flex-direction: column;
     perspective: none;
     height: auto !important;
+    gap: 8px;
   }
+
+  /* свернутые панели — тонкие строки-полоски; активная — крупное фото */
   .ag-panel {
-    min-height: 96px;
+    flex: none;
+    min-height: 0;
+    height: 64px;
+    border-radius: 14px;
     transform: none !important;
+    transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
+
+  .ag-panel--active {
+    height: min(76vw, 380px);
+  }
+
   .accordion-gallery .ag-panel__media {
     width: 100%;
-    height: var(--ag-media-size);
+    height: 100%;
+  }
+
+  /* на полоске: мини-подпись с зелёной чертой + чип «+» — понятно, что тапают */
+  .ag-panel:not(.ag-panel--active) .ag-panel__label {
+    top: 50%;
+    bottom: auto;
+    left: 14px;
+    right: auto;
+    transform: translateY(-50%);
+    gap: 8px;
+  }
+
+  .ag-panel:not(.ag-panel--active) .ag-panel__bar {
+    opacity: 1 !important;
+    height: 14px;
+  }
+
+  .ag-panel:not(.ag-panel--active) .ag-panel__text {
+    opacity: 0.9 !important;
+    transform: none !important;
+    font-size: 12.5px;
+    letter-spacing: 0.01em;
+  }
+
+  .ag-panel::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2f2ec' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/11px no-repeat,
+      rgba(8, 8, 8, 0.5);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .ag-panel--active::after {
+    opacity: 0;
   }
 }
 

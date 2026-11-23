@@ -52,10 +52,9 @@
 
   function apply() {
     state.raf = 0;
-    if (!state.visible) {
-      if (window.engineDraw) window.engineDraw(state.p);
-      return;
-    }
+    /* прогресс и UI-классы — всегда; «дорогая» отрисовка — только
+       когда сцена в вьюпорте (иначе прыжок мимо hero оставлял
+       навбар скрытым навсегда) */
     state.p += (state.pTarget - state.p) * 0.22;
     if (Math.abs(state.pTarget - state.p) < 0.0006) state.p = state.pTarget;
 
@@ -74,25 +73,37 @@
 
     if (bar) bar.style.transform = `scaleY(${state.p.toFixed(4)})`;
 
-    if (header) {
-      const show = state.p > 0.985;
-      if (show !== state.navShown) {
-        state.navShown = show;
-        header.classList.toggle("is-visible", show);
-      }
-    }
+    /* навбаром владеет scroll-обработчик (тогл по pTarget) —
+       здесь не трогаем, иначе сглаженный p перетирает класс */
 
-    if (window.engineDraw) window.engineDraw(state.p);
+    if (state.visible && window.engineDraw) window.engineDraw(state.p);
+
     /* живём в rAF, пока не догнали палец; на месте — 0 rAF */
     if (state.p !== state.pTarget) state.raf = requestAnimationFrame(apply);
   }
 
   window.addEventListener("scroll", () => {
     computeTarget();
+    /* появление навбара — по целевому прогрессу, напрямую:
+       не зависит от rAF-троттлинга и не ждёт догоняющего easing */
+    if (header) {
+      const show = state.pTarget > 0.985;
+      if (show !== state.navShown) {
+        state.navShown = show;
+        header.classList.toggle("is-visible", show);
+      }
+    }
     wake();
   }, { passive: true });
   window.addEventListener("resize", () => {
     computeTarget();
+    if (header) {
+      const show = state.pTarget > 0.985;
+      if (show !== state.navShown) {
+        state.navShown = show;
+        header.classList.toggle("is-visible", show);
+      }
+    }
     wake();
   });
 
@@ -228,7 +239,7 @@
 
   computeTarget();
   state.p = state.pTarget;
-  state.navShown = state.p > 0.985;
+  state.navShown = state.pTarget > 0.985;
   if (header && (state.navShown || reduceMotion)) header.classList.add("is-visible");
 
   if (reduceMotion) {
