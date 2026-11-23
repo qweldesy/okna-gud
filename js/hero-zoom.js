@@ -121,7 +121,7 @@
 
     const ctx = canvas.getContext("2d");
     const FRAMES = 90;
-    const frameUrl = (i) => `img/hero-frames/f${String(i + 1).padStart(3, "0")}.jpg`;
+    const frameUrl = (i) => `img/hero-frames/f${String(i + 1).padStart(3, "0")}.webp`;
     const imgs = new Array(FRAMES).fill(null);
 
     const nearestIndex = (idx) => {

@@ -164,6 +164,10 @@
     filter: brightness(1.22) saturate(1.05);
   }
 
+  .hero-stage__canvas {
+    background-image: url("../img/poster-mobile.webp");
+  }
+
   .hero-stage__shade {
     background:
       linear-gradient(180deg, rgba(5, 5, 5, 0.28) 0%, rgba(5, 5, 5, 0.04) 30%, rgba(5, 5, 5, 0.1) 58%, rgba(5, 5, 5, 0.55) 88%, rgba(5, 5, 5, 0.8) 100%);

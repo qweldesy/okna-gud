@@ -813,13 +813,6 @@ button {
   border: 1px solid var(--stroke-soft);
 }
 
-.energy-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-}
-
 .energy-metric {
   display: flex;
   align-items: baseline;
@@ -835,84 +828,60 @@ button {
 }
 
 .energy-metric span:last-child {
-  max-width: 100px;
   color: #8f8f88;
-  font-size: 10px;
-  line-height: 1.3;
+  font-size: 10.5px;
+  line-height: 1.35;
 }
 
-.energy-legend {
+/* сравнение тёплопотерь — двумя полосами, читается на любом экране */
+.energy-bars {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  color: #8b8b84;
-  font-size: 9.5px;
+  gap: 9px;
+  margin-top: 16px;
 }
 
-.energy-legend span {
+.ebar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
-.dot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-.dot-white { background: #e7e7e0; }
-.dot-muted { background: #5f5f59; }
-
-.energy-chart {
-  width: 100%;
-  height: auto;
-  margin-top: 12px;
-  overflow: visible;
+.ebar-name {
+  flex: 0 0 76px;
+  color: #8b8b84;
+  font-size: 10.5px;
+  line-height: 1.2;
 }
 
-.chart-grid path {
-  stroke: rgba(255, 255, 255, 0.07);
-  stroke-width: 1;
+.ebar-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
 }
 
-.chart-line {
-  fill: none;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.ebar-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
 }
 
-.chart-line-old {
-  stroke: rgba(255, 255, 255, 0.24);
-  stroke-dasharray: 4 5;
+.ebar-new {
+  background: linear-gradient(90deg, #a9d473, #8fc45d);
+  box-shadow: 0 0 14px rgba(143, 196, 93, 0.3);
 }
 
-.chart-line-new {
-  stroke: #e9e9e2;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.18));
-}
-
-.chart-points circle {
-  fill: #0d0d0c;
-  stroke: #e9e9e2;
-  stroke-width: 1.5;
-}
-
-.energy-chart text {
-  fill: #6d6d66;
-  font-family: var(--font-body);
-  font-size: 9px;
-  letter-spacing: 0.04em;
+.ebar-old {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .energy-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 8px;
+  padding-top: 10px;
   color: #6f6f68;
-  font-size: 9px;
+  font-size: 9.5px;
 }
 
 .noise-visual {
@@ -3346,6 +3315,7 @@ a.footer-text:hover {
 
 
   .bento-card {
+    grid-column: span 12;
     padding: 21px;
     border-radius: 20px;
   }
@@ -3354,14 +3324,25 @@ a.footer-text:hover {
     min-height: 0;
   }
 
-  .energy-top {
-    flex-direction: column;
-    gap: 10px;
+  .energy-metric span:first-child {
+    font-size: 40px;
   }
 
-  .energy-legend {
-    flex-direction: row;
-    gap: 14px;
+  .energy-metric span:last-child {
+    font-size: 11px;
+  }
+
+  .ebar-name {
+    flex-basis: 82px;
+    font-size: 11px;
+  }
+
+  .ebar-track {
+    height: 12px;
+  }
+
+  .energy-foot {
+    font-size: 10px;
   }
 
 
