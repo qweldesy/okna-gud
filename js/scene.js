@@ -302,7 +302,7 @@ export function createWindowScene(container, options = {}) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   container.appendChild(renderer.domElement);
 
@@ -325,7 +325,7 @@ export function createWindowScene(container, options = {}) {
   const keyLight = new THREE.DirectionalLight(0xf7f5ef, 2.35);
   keyLight.position.set(-3.2, 4.2, 5.5);
   keyLight.castShadow = true;
-  keyLight.shadow.mapSize.set(1024, 1024);
+  keyLight.shadow.mapSize.set(512, 512);
   keyLight.shadow.camera.near = 0.5;
   keyLight.shadow.camera.far = 18;
   keyLight.shadow.camera.left = -4;
