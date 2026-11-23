@@ -32,6 +32,46 @@
     return;
   }
 
+  /* iOS Safari ignores preload and seeks until the element is "unlocked"
+     by a real play()/pause() inside a user gesture. */
+  video.muted = true;
+  try {
+    video.load();
+  } catch (error) {
+    /* ignore */
+  }
+  const touchDevice = (navigator.maxTouchPoints || 0) > 0;
+  let unlocked = false;
+
+  function unlockVideo() {
+    if (unlocked || !touchDevice) return;
+    unlocked = true;
+    const pr = video.play();
+    if (pr && typeof pr.then === "function") {
+      pr.then(() => {
+        video.pause();
+        duration = Number.isFinite(video.duration) ? video.duration : duration;
+        computeTarget();
+        wake();
+      }).catch(() => {
+        /* autoplay still blocked — retry on the next touch */
+        unlocked = false;
+      });
+    } else {
+      try {
+        video.pause();
+      } catch (error) {
+        /* ignore */
+      }
+    }
+  }
+
+  ["touchstart", "touchend"].forEach((ev) => {
+    window.addEventListener(ev, unlockVideo, { passive: true });
+  });
+  window.addEventListener("scroll", unlockVideo, { passive: true, once: true });
+
+
   let duration = 0;
   let pTarget = 0;
   let p = 0;
