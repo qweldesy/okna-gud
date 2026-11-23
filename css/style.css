@@ -1096,23 +1096,6 @@ button {
   line-height: 1.65;
 }
 
-.production-points {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 20px;
-}
-
-.production-points span {
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: #c4c4bc;
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.11);
-}
 
 .warranty-number {
   display: flex;
@@ -1661,8 +1644,6 @@ button {
   pointer-events: none;
 }
 
-.type-card input,
-.option input,
 .swatch input {
   position: absolute;
   width: 1px;
@@ -3470,9 +3451,6 @@ a.footer-text:hover {
       linear-gradient(180deg, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.82) 48%, rgba(5, 5, 5, 0.96) 100%);
   }
 
-  .production-points span {
-    font-size: 8px;
-  }
 
   .bento-card {
     padding: 21px;
