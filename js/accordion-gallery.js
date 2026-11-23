@@ -37,6 +37,11 @@
     let tl = null;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* на тач-устройствах тап генерирует mouseenter/focus ДО click —
+       если переключать активную панель на них, к моменту клика панель
+       уже «активна» и клик уносит в конфигуратор. Только click. */
+    const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const hoverMode = !coarse && cfg.trigger === "hover";
 
     function applyLayout(animate) {
       const r = clamp(cfg.expandRatio, 0.2, 0.9);
@@ -114,7 +119,7 @@
     }
 
     panels.forEach((panel, i) => {
-      if (cfg.trigger === "hover") {
+      if (hoverMode) {
         panel.addEventListener("mouseenter", () => {
           if (i !== active) {
             firstRun = false;
@@ -123,13 +128,15 @@
           }
         });
       }
-      panel.addEventListener("focus", () => {
-        if (i !== active) {
-          firstRun = false;
-          active = i;
-          applyLayout(true);
-        }
-      });
+      if (!coarse) {
+        panel.addEventListener("focus", () => {
+          if (i !== active) {
+            firstRun = false;
+            active = i;
+            applyLayout(true);
+          }
+        });
+      }
       panel.addEventListener("click", (e) => {
         if (i !== active) {
           e.preventDefault();
