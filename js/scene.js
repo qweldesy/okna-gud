@@ -296,7 +296,7 @@ export function createWindowScene(container, options = {}) {
     alpha: true,
     powerPreference: "high-performance",
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -422,7 +422,7 @@ export function createWindowScene(container, options = {}) {
   function resize() {
     const w = Math.max(1, container.clientWidth);
     const h = Math.max(1, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
@@ -998,6 +998,24 @@ export function createWindowScene(container, options = {}) {
   renderer.domElement.addEventListener("pointercancel", onPointerUp);
   renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
   renderer.domElement.addEventListener("dblclick", onDoubleClick);
+
+  /* Pause the render loop when the stage is out of view */
+  let stageVisible = true;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      (entries) => {
+        const inView = entries.some((entry) => entry.isIntersecting);
+        if (inView && !stageVisible) {
+          stageVisible = true;
+          start();
+        } else if (!inView && stageVisible) {
+          stageVisible = false;
+          running = false;
+        }
+      },
+      { rootMargin: "120px 0px" }
+    ).observe(container);
+  }
 
   const clock = new THREE.Clock();
 
