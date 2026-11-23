@@ -33,8 +33,12 @@
   }
 
   /* iOS Safari ignores preload and seeks until the element is "unlocked"
-     by a real play()/pause() inside a user gesture. */
+     by a real play()/pause() inside a user gesture. On touch devices we
+     keep the video PLAYING at a near-frozen rate (0.0625×) while the
+     guest scrubs — paused seeks render black on iOS. */
   video.muted = true;
+  video.playsInline = true;
+  video.setAttribute("webkit-playsinline", "");
   try {
     video.load();
   } catch (error) {
@@ -49,7 +53,11 @@
     const pr = video.play();
     if (pr && typeof pr.then === "function") {
       pr.then(() => {
-        video.pause();
+        try {
+          video.playbackRate = 0.0625;
+        } catch (error) {
+          /* ignore */
+        }
         duration = Number.isFinite(video.duration) ? video.duration : duration;
         computeTarget();
         wake();
@@ -57,19 +65,12 @@
         /* autoplay still blocked — retry on the next touch */
         unlocked = false;
       });
-    } else {
-      try {
-        video.pause();
-      } catch (error) {
-        /* ignore */
-      }
     }
   }
 
   ["touchstart", "touchend"].forEach((ev) => {
     window.addEventListener(ev, unlockVideo, { passive: true });
   });
-  window.addEventListener("scroll", unlockVideo, { passive: true, once: true });
 
 
   let duration = 0;
@@ -111,6 +112,24 @@
         }
       }
 
+      /* iOS: keep the video playing near-frozen while scrubbing,
+         pause only when the guest stops — paused seeks render black */
+      if (touchDevice && unlocked) {
+        if (!settled) {
+          if (video.paused) {
+            const pr = video.play();
+            if (pr && typeof pr.catch === "function") pr.catch(() => {});
+          }
+          try {
+            video.playbackRate = 0.0625;
+          } catch (error) {
+            /* ignore */
+          }
+        } else if (!video.paused) {
+          video.pause();
+        }
+      }
+
       /* the scroll hint melts away as soon as the guest starts scrolling */
       if (hint) {
         const ho = 1 - smooth(0.015, 0.075, p);
@@ -142,6 +161,14 @@
     io = new IntersectionObserver(
       (entries) => {
         visible = entries.some((entry) => entry.isIntersecting);
+        if (!visible && touchDevice && unlocked && !video.paused) {
+          video.pause();
+          try {
+            video.playbackRate = 1;
+          } catch (error) {
+            /* ignore */
+          }
+        }
         wake();
       },
       { rootMargin: "140px 0px" }
