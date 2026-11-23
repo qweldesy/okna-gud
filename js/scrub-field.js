@@ -52,7 +52,7 @@
 
     const d = root.dataset;
     const cfg = {
-      label: d.label || "Radius",
+      label: d.label || "",
       suffix: d.suffix || "",
       min: Number(d.min ?? 0),
       max: Number(d.max ?? 100),
@@ -116,9 +116,6 @@
       root.appendChild(track);
     }
 
-    const handle = el("label", "scrub-field__handle");
-    handle.textContent = cfg.label;
-
     const input = el("input", "scrub-field__input");
     input.type = "text";
     input.inputMode = "decimal";
@@ -126,10 +123,19 @@
     input.setAttribute("role", "spinbutton");
     if (cfg.inputId) input.id = cfg.inputId;
     else input.id = `scrub-field-${(uid += 1)}`;
-    handle.htmlFor = input.id;
     input.disabled = cfg.disabled;
 
-    root.appendChild(handle);
+    let handle = null;
+    if (cfg.label) {
+      handle = el("label", "scrub-field__handle");
+      handle.textContent = cfg.label;
+      handle.htmlFor = input.id;
+      root.appendChild(handle);
+    } else {
+      handle = el("label", "scrub-field__handle");
+      handle.style.display = "none";
+    }
+
     root.appendChild(input);
 
     if (cfg.suffix) {
