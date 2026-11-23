@@ -297,17 +297,6 @@ button {
   transform: none;
 }
 
-/* скролл вниз — пилюля уезжает; скролл вверх — возвращается */
-.site-header.is-tucked {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-16px);
-  transition:
-    opacity 0.28s var(--ease),
-    transform 0.32s var(--ease-morph),
-    visibility 0s linear 0.32s;
-}
-
 .header-pill {
   position: relative;
   pointer-events: auto;
@@ -1142,33 +1131,8 @@ button {
   position: relative;
   min-height: 724px;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 62% 52% at 50% 40%, rgba(157, 176, 178, 0.14), transparent 66%),
-    radial-gradient(ellipse 32% 24% at 82% 84%, rgba(255, 255, 255, 0.05), transparent 70%),
-    linear-gradient(160deg, #111211 0%, #0a0a0a 60%, #070707 100%);
+  background: #0a0a0a;
   border-right: 1px solid var(--stroke-soft);
-}
-
-.config-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000, transparent 78%);
-  mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000, transparent 78%);
-  pointer-events: none;
-}
-
-.config-stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(ellipse 80% 72% at 50% 48%, transparent 55%, rgba(5, 5, 5, 0.55) 100%);
-  pointer-events: none;
 }
 
 .stage-canvas {

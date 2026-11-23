@@ -79,82 +79,6 @@ function makeWoodTexture(renderer) {
   return texture;
 }
 
-function makeSkyTexture(renderer) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 768;
-  canvas.height = 960;
-  const ctx = canvas.getContext("2d");
-
-  const sky = ctx.createLinearGradient(0, 0, 0, 960);
-  sky.addColorStop(0, "#5c7a84");
-  sky.addColorStop(0.28, "#7e9ba2");
-  sky.addColorStop(0.52, "#a9c0c0");
-  sky.addColorStop(0.68, "#d4ddd4");
-  sky.addColorStop(0.76, "#b9c7bc");
-  sky.addColorStop(1, "#465b50");
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, 768, 960);
-
-  const sun = ctx.createRadialGradient(500, 250, 6, 500, 250, 240);
-  sun.addColorStop(0, "rgba(255,255,250,0.85)");
-  sun.addColorStop(0.4, "rgba(255,250,232,0.28)");
-  sun.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = sun;
-  ctx.fillRect(0, 0, 768, 960);
-
-  /* distant horizon */
-  ctx.save();
-  ctx.filter = "blur(3px)";
-  ctx.fillStyle = "rgba(73,91,83,0.46)";
-  ctx.beginPath();
-  ctx.moveTo(0, 690);
-  ctx.bezierCurveTo(160, 666, 320, 702, 480, 678);
-  ctx.bezierCurveTo(610, 660, 700, 684, 768, 670);
-  ctx.lineTo(768, 960);
-  ctx.lineTo(0, 960);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-
-  /* soft tree canopies */
-  ctx.save();
-  ctx.filter = "blur(9px)";
-  const canopies = [
-    [42, 748, 120, 92, -0.08],
-    [158, 716, 110, 76, 0.04],
-    [282, 742, 138, 88, -0.04],
-    [420, 704, 106, 72, 0.06],
-    [548, 734, 148, 92, -0.03],
-    [680, 700, 112, 82, 0.05],
-    [760, 748, 96, 78, 0],
-  ];
-  canopies.forEach(([cx, cy, rx, ry, rotation], index) => {
-    ctx.fillStyle = index % 2 === 0 ? "rgba(31,49,38,0.72)" : "rgba(37,56,44,0.62)";
-    ctx.beginPath();
-    ctx.ellipse(cx, cy, rx, ry, rotation, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  const bank = ctx.createLinearGradient(0, 760, 0, 960);
-  bank.addColorStop(0, "rgba(31,48,38,0.78)");
-  bank.addColorStop(1, "rgba(16,29,22,0.98)");
-  ctx.fillStyle = bank;
-  ctx.fillRect(0, 780, 768, 180);
-  ctx.restore();
-
-  /* light haze near the horizon */
-  const haze = ctx.createLinearGradient(0, 600, 0, 820);
-  haze.addColorStop(0, "rgba(240,245,235,0)");
-  haze.addColorStop(0.55, "rgba(240,245,235,0.25)");
-  haze.addColorStop(1, "rgba(240,245,235,0)");
-  ctx.fillStyle = haze;
-  ctx.fillRect(0, 600, 768, 220);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-  return texture;
-}
-
 function makeGlareTexture(renderer) {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
@@ -200,54 +124,6 @@ function makeNetTexture(renderer) {
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-  return texture;
-}
-
-function makeWallTexture(renderer) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 768;
-  canvas.height = 768;
-  const ctx = canvas.getContext("2d");
-
-  const vertical = ctx.createLinearGradient(0, 0, 0, 768);
-  vertical.addColorStop(0, "#1b1c19");
-  vertical.addColorStop(0.42, "#141513");
-  vertical.addColorStop(1, "#080808");
-  ctx.fillStyle = vertical;
-  ctx.fillRect(0, 0, 768, 768);
-
-  const glow = ctx.createRadialGradient(384, 330, 30, 384, 330, 470);
-  glow.addColorStop(0, "rgba(112,116,108,0.2)");
-  glow.addColorStop(0.55, "rgba(74,77,71,0.08)");
-  glow.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, 768, 768);
-
-  let seed = 19;
-  const random = () => {
-    seed = (seed * 48271) % 2147483647;
-    return seed / 2147483647;
-  };
-
-  for (let index = 0; index < 2600; index += 1) {
-    const x = random() * 768;
-    const y = random() * 768;
-    const light = random() > 0.55;
-    ctx.fillStyle = light
-      ? `rgba(190,193,182,${0.01 + random() * 0.025})`
-      : `rgba(0,0,0,${0.02 + random() * 0.035})`;
-    ctx.fillRect(x, y, 1 + random() * 2.4, 1 + random() * 2.4);
-  }
-
-  const vignette = ctx.createRadialGradient(384, 384, 250, 384, 384, 620);
-  vignette.addColorStop(0, "rgba(0,0,0,0)");
-  vignette.addColorStop(1, "rgba(0,0,0,0.55)");
-  ctx.fillStyle = vignette;
-  ctx.fillRect(0, 0, 768, 768);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
   return texture;
 }
@@ -347,20 +223,10 @@ export function createWindowScene(container, options = {}) {
   const root = new THREE.Group();
   scene.add(root);
 
-  /* Persistent outside light */
-  const skyTexture = makeSkyTexture(renderer);
-  const sky = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ map: skyTexture })
-  );
-  sky.position.z = -0.48;
-  root.add(sky);
-
   const model = new THREE.Group();
   root.add(model);
 
   const woodTexture = makeWoodTexture(renderer);
-  const wallTexture = makeWallTexture(renderer);
   const glareTexture = makeGlareTexture(renderer);
   const netTexture = makeNetTexture(renderer);
 
@@ -456,10 +322,6 @@ export function createWindowScene(container, options = {}) {
     }
 
     const frame = new THREE.MeshPhysicalMaterial(frameParams);
-    const wall = new THREE.MeshBasicMaterial({
-      map: wallTexture,
-      toneMapped: false,
-    });
     const gasket = new THREE.MeshStandardMaterial({
       color: 0x23241f,
       roughness: 0.8,
@@ -508,7 +370,7 @@ export function createWindowScene(container, options = {}) {
       depthWrite: false,
     });
 
-    return { frame, wall, gasket, handle, sill, glass, glare, net };
+    return { frame, gasket, handle, sill, glass, glare, net };
   }
 
   function layoutPanels(innerW, innerH) {
@@ -704,37 +566,9 @@ export function createWindowScene(container, options = {}) {
     width = clamp(state.width / 1000, 0.7, 2.2);
     height = clamp(state.height / 1000, 0.7, 2.2);
     updateWallMetrics();
-    sky.scale.set(Math.max(0.9, wallWidth - 0.14), Math.max(0.9, wallHeight - 0.14), 1);
 
     const materials = materialSet();
     Object.values(materials).forEach((material) => buildMaterials.add(material));
-
-    /* Wall slab with an opening */
-    const holeW = width + 0.026;
-    const holeH = height + 0.026;
-    const shape = makeWallShape(wallWidth, wallHeight, holeW, holeH);
-    const wallGeometry = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.06,
-      bevelEnabled: true,
-      bevelThickness: 0.009,
-      bevelSize: 0.009,
-      bevelSegments: 2,
-      curveSegments: 6,
-    });
-    const wall = new THREE.Mesh(wallGeometry, materials.wall);
-    wall.position.z = -0.15;
-    wall.castShadow = false;
-    model.add(wall);
-
-    /* Invisible shadow catcher: adds contact shadows to the wall only, not to the sky. */
-    const shadowPlane = new THREE.Mesh(
-      new THREE.ShapeGeometry(shape, 8),
-      new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.55, transparent: true, depthWrite: false })
-    );
-    shadowPlane.position.z = -0.086;
-    shadowPlane.receiveShadow = true;
-    shadowPlane.renderOrder = 1;
-    model.add(shadowPlane);
 
     /* Outer frame — profile depth is visible in 3D */
     const profileWidth = state.profile === "blitz" ? 0.058 : state.profile === "delight" ? 0.075 : 0.07;
@@ -756,31 +590,6 @@ export function createWindowScene(container, options = {}) {
     addFrameBar(width, frameWidth, 0, -height / 2 + frameWidth / 2);
     addFrameBar(frameWidth, height - frameWidth * 2, -width / 2 + frameWidth / 2, 0);
     addFrameBar(frameWidth, height - frameWidth * 2, width / 2 - frameWidth / 2, 0);
-
-    /* Dark reveal between frame and wall slab */
-    const revealDepth = 0.055;
-    const revealMaterial = materials.gasket;
-    const revealZ = -0.085;
-    const revealThickness = 0.018;
-    const revealTop = new THREE.Mesh(
-      roundedBox(width + 0.05, revealThickness, revealDepth, 0.005),
-      revealMaterial
-    );
-    revealTop.position.set(0, height / 2 + 0.012, revealZ);
-    model.add(revealTop);
-    const revealBottom = revealTop.clone();
-    revealBottom.position.y = -height / 2 - 0.012;
-    model.add(revealBottom);
-
-    const revealSide = new THREE.Mesh(
-      roundedBox(revealThickness, height + 0.06, revealDepth, 0.005),
-      revealMaterial
-    );
-    revealSide.position.set(-width / 2 - 0.012, 0, revealZ);
-    model.add(revealSide);
-    const revealSideRight = revealSide.clone();
-    revealSideRight.position.x = width / 2 + 0.012;
-    model.add(revealSideRight);
 
     /* Dark shadow gap around the sashes */
     const innerW = width - frameWidth * 2 - 0.016;
@@ -1105,11 +914,7 @@ export function createWindowScene(container, options = {}) {
     buildMaterials.clear();
     buildTextures.forEach((texture) => texture.dispose());
     buildTextures.clear();
-    sky.geometry.dispose();
-    sky.material.dispose();
-    skyTexture.dispose();
     woodTexture.dispose();
-    wallTexture.dispose();
     glareTexture.dispose();
     netTexture.dispose();
     envTexture.dispose();

@@ -24,36 +24,6 @@
   let activeLink = null;
   let rafPending = false;
 
-  /* ---- прячем пилюлю при скролле вниз, возвращаем при скролле вверх ---- */
-
-  let lastY = window.scrollY;
-  let prevVisible = false;
-  let shownAt = 0;
-
-  function manageTuck() {
-    const y = window.scrollY;
-    const dy = y - lastY;
-    lastY = y;
-
-    const visible = header.classList.contains("is-visible");
-    if (visible && !prevVisible) shownAt = performance.now();
-    prevVisible = visible;
-
-    const menuOpen =
-      document.querySelector(".nav-toggle")?.getAttribute("aria-expanded") === "true";
-
-    if (!visible || menuOpen) {
-      header.classList.remove("is-tucked");
-      return;
-    }
-    /* только что раскрылась после видео — даём ей показать себя */
-    if (dy > 6 && y > 90 && performance.now() - shownAt > 700) {
-      header.classList.add("is-tucked");
-    } else if (dy < -6 || y <= 90) {
-      header.classList.remove("is-tucked");
-    }
-  }
-
   function measure() {
     if (!activeLink) return;
     const navRect = nav.getBoundingClientRect();
@@ -109,7 +79,6 @@
     window.requestAnimationFrame(() => {
       rafPending = false;
       pickSection();
-      manageTuck();
     });
   }
 
