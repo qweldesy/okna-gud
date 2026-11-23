@@ -369,22 +369,7 @@
         <div class="config-shell glass">
           <!-- 3D STAGE -->
           <div class="config-stage" id="config-stage">
-            <div class="stage-top">
-              <span class="stage-badge"><i class="live-dot" aria-hidden="true"></i><span class="badge-long">3D · в реальном времени</span><span class="badge-short">3D</span></span>
-              <div class="stage-tools">
-                <button class="icon-btn" type="button" id="rotate-left" aria-label="Повернуть окно влево" title="Повернуть влево">
-                  <svg class="icon" aria-hidden="true"><use href="#i-rotate"/></svg>
-                </button>
-                <button class="icon-btn" type="button" id="rotate-right" aria-label="Повернуть окно вправо" title="Повернуть вправо">
-                  <svg class="icon" aria-hidden="true" style="transform:scaleX(-1)"><use href="#i-rotate"/></svg>
-                </button>
-                <button class="icon-btn" type="button" id="reset-view" aria-label="Сбросить вид камеры" title="Сбросить вид">
-                  <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="stage-canvas" id="stage-canvas" aria-label="Интерактивная 3D-модель окна. Используйте кнопки поворота или перетаскивание мышью.">
+            <div class="stage-canvas" id="stage-canvas" aria-label="Интерактивная 3D-модель окна. Перетаскивание мышью — поворот, колесо — масштаб.">
               <div class="stage-loading" id="stage-loading">
                 <span class="loading-ring" aria-hidden="true"></span>
                 <span>Собираем 3D-модель</span>
@@ -398,11 +383,6 @@
             <div class="stage-dimensions" aria-hidden="true">
               <span class="dim dim-height" id="dim-height">1 400 мм</span>
               <span class="dim dim-width" id="dim-width">1 400 мм</span>
-            </div>
-
-            <div class="stage-price glass" id="stage-price">
-              <span>Ваш расчёт</span>
-              <strong><span data-price-display>35 900</span> ₽</strong>
             </div>
 
             <div class="stage-bottom">
@@ -665,10 +645,6 @@
             <!-- PRICE -->
             <div class="price-card">
               <div class="price-main">
-                <div class="price-top">
-                  <span class="price-label"><i class="live-dot" aria-hidden="true"></i> Ваш расчёт</span>
-                  <span class="price-terms">обновляется мгновенно</span>
-                </div>
                 <div class="price-value"><span data-price-display>35 900</span> <span class="price-currency">₽</span></div>
                 <div class="price-monthly">≈ <span data-monthly>5 984</span> ₽/мес · рассрочка 0% на 6 месяцев</div>
               </div>

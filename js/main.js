@@ -461,17 +461,6 @@
 
     if (openButton) openButton.addEventListener("click", toggleWindowSash);
 
-    const rotateLeft = $("#rotate-left");
-    const rotateRight = $("#rotate-right");
-    const resetView = $("#reset-view");
-    if (rotateLeft) rotateLeft.addEventListener("click", () => sceneControl && sceneControl.rotate(-0.34));
-    if (rotateRight) rotateRight.addEventListener("click", () => sceneControl && sceneControl.rotate(0.34));
-    if (resetView) {
-      resetView.addEventListener("click", () => {
-        if (sceneControl) sceneControl.reset();
-      });
-    }
-
     if (stageEl) {
       stageEl.addEventListener("keydown", (event) => {
         if (!sceneControl) return;
