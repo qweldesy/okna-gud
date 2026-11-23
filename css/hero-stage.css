@@ -6,7 +6,7 @@
 
 .hero-stage {
   position: relative;
-  height: 320vh;
+  height: 320svh;
   background: #050505;
 }
 
@@ -146,7 +146,16 @@
 
 @media (max-width: 720px) {
   .hero-stage {
-    height: 300vh;
+    height: 300svh;
+  }
+
+  .hero-stage__video {
+    filter: brightness(1.22) saturate(1.05);
+  }
+
+  .hero-stage__shade {
+    background:
+      linear-gradient(180deg, rgba(5, 5, 5, 0.28) 0%, rgba(5, 5, 5, 0.04) 30%, rgba(5, 5, 5, 0.1) 58%, rgba(5, 5, 5, 0.55) 88%, rgba(5, 5, 5, 0.8) 100%);
   }
 
   .hero-stage__hint {

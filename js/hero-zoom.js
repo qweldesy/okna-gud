@@ -58,7 +58,7 @@
     raf = 0;
     const dur = duration || (Number.isFinite(video.duration) ? video.duration : 0);
     if (visible && dur > 0) {
-      p += (pTarget - p) * 0.16;
+      p += (pTarget - p) * 0.22;
       if (Math.abs(pTarget - p) < 0.0006) p = pTarget;
       const settled = p === pTarget;
 

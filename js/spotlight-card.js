@@ -118,6 +118,11 @@
     function tick(now) {
       raf = 0;
       if (!state.visible) return;
+      if (!bus.active && state.presence < 0.01 && !focus) {
+        state.presence = 0;
+        paint();
+        return;
+      }
       const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
       last = now;
       const rect = root.getBoundingClientRect();
