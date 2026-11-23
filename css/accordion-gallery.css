@@ -184,25 +184,7 @@
   }
 
   .ag-panel--active::after {
-    content: "Открыть в конфигураторе";
-    position: absolute;
-    top: auto;
-    right: 14px;
-    bottom: 14px;
-    width: auto;
-    height: auto;
-    transform: none;
-    padding: 8px 13px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    background: rgba(8, 8, 8, 0.55);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    color: #f2f2ec;
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    opacity: 1;
-    transition: opacity 0.3s;
+    opacity: 0;
   }
 }
 

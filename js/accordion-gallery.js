@@ -138,6 +138,16 @@
         });
       }
       panel.addEventListener("click", (e) => {
+        /* тач: галерея только листает фото — переходов из неё нет */
+        if (coarse) {
+          e.preventDefault();
+          if (i !== active) {
+            firstRun = false;
+            active = i;
+            applyLayout(true);
+          }
+          return;
+        }
         if (i !== active) {
           e.preventDefault();
           firstRun = false;

@@ -561,6 +561,10 @@
     const links = $$("[data-work-config]");
     if (!links.length) return;
 
+    /* на тач-устройствах фото в галерее только листаются —
+       никакие тапы не должны уводить в конфигуратор */
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
